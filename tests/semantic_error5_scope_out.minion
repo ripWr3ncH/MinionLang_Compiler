@@ -1,0 +1,12 @@
+$$ Semantic Error Test 5: Out-of-scope variable usage
+
+#bringy <stdio.h>
+
+banana starta() {
+    kaba (1) {
+        banana t := 3;
+    }
+
+    papoy("%d", t);
+    backa 0;
+}

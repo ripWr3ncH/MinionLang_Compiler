@@ -1,0 +1,11 @@
+$$ Semantic Error Test 6: Void function returning value
+
+#bringy <stdio.h>
+
+nada showValue() {
+    backa 5;
+}
+
+banana starta() {
+    backa 0;
+}

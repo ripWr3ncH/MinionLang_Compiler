@@ -1,0 +1,9 @@
+$$ Semantic Error Test 1: Undeclared variable usage
+
+#bringy <stdio.h>
+
+banana starta() {
+    banana x := 10;
+    y := x add 1;   $$ y is undeclared
+    backa 0;
+}

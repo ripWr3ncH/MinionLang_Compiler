@@ -1,0 +1,9 @@
+$$ Semantic Error Test 2: Variable redeclaration
+
+#bringy <stdio.h>
+
+banana starta() {
+    banana x := 5;
+    banana x := 6;  $$ redeclaration in same scope
+    backa 0;
+}

@@ -1,0 +1,21 @@
+$$ MinionLang Syntax Error Test
+$$ This file contains INTENTIONAL syntax errors
+$$ The parser should detect and report them
+
+#bringy <stdio.h>
+
+banana starta() {
+    
+    $$ ERROR 1: Missing semicolon after declaration
+    banana x := 10
+    
+    $$ ERROR 2: Missing closing parenthesis
+    kaba (x > 5 {
+        papoy("Test");
+    }
+    
+    $$ The parser will stop at the first error
+    $$ and report it with line number
+    
+    backa 0;
+}

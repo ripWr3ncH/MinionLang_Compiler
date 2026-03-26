@@ -1,0 +1,11 @@
+$$ Semantic Error Test 7: Non-void function missing return
+
+#bringy <stdio.h>
+
+banana addOne(banana x) {
+    banana y := x add 1;
+}
+
+banana starta() {
+    backa 0;
+}

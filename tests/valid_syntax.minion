@@ -1,0 +1,97 @@
+$$ MinionLang Valid Syntax Test
+$$ This file should parse successfully
+
+#bringy <stdio.h>
+#bringy <math.h>
+#setty MAX 100
+
+$* This is a valid MinionLang program
+   demonstrating all language features *$
+
+banana starta() {
+    $$ Variable declarations
+    banana x := 10;
+    banana y := 5;
+    smoothie pi := 3.14159;
+    chibi letter := 'A';
+    yesno flag := 1;
+    
+    $$ Simple expression
+    banana sum := x add y;
+    
+    $$ If-else statement
+    kaba (x > y) {
+        papoy("x is greater");
+    } bababa {
+        papoy("y is greater or equal");
+    }
+    
+    $$ If-else-if chain
+    kaba (x == 10) {
+        papoy("x is 10");
+    } bababa kaba (x == 5) {
+        papoy("x is 5");
+    } bababa {
+        papoy("x is something else");
+    }
+    
+    $$ For loop
+    againa(banana i := 0 : i < 10 : i := i add 1) {
+        papoy("Loop iteration");
+    }
+    
+    $$ While loop
+    loopa(x > 0) {
+        x := x minus 1;
+    }
+    
+    $$ Do-while loop
+    dodo {
+        y := y add 1;
+    } loopa(y < 10);
+    
+    $$ Switch statement
+    choosey(x) {
+        optiona 1:
+            papoy("One");
+            stoppo;
+        optiona 2:
+            papoy("Two");
+            stoppo;
+        otherwise:
+            papoy("Other");
+    }
+    
+    $$ Math functions
+    smoothie sqrtVal := root(16.0);
+    smoothie powVal := power(2.0, 3.0);
+    
+    $$ Logical operations
+    kaba (flag AND (x > 0)) {
+        papoy("Condition true");
+    }
+    
+    kaba (NOT flag OR (y <= 0)) {
+        papoy("Alternative");
+    }
+    
+    $$ Array declaration
+    banana arr[10];
+    arr[0] := 1;
+    
+    $$ Function call
+    papoy("Hello, %d", x);
+    takey("%d", x);
+    
+    $$ Return statement
+    backa 0;
+}
+
+$$ Additional function
+banana addTwo(banana a, banana b) {
+    backa a add b;
+}
+
+nada printHello() :-> nada {
+    papoy("Hello from MinionLang!");
+}

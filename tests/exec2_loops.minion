@@ -1,0 +1,22 @@
+$$ Execution Proof Test 2: For, While, Do-While
+#bringy <stdio.h>
+
+banana starta() {
+    againa(banana i := 1 : i <= 3 : i := i add 1) {
+        papoy("F%d\n", i);
+    }
+
+    banana j := 0;
+    loopa (j < 2) {
+        papoy("W%d\n", j);
+        j := j add 1;
+    }
+
+    banana k := 2;
+    dodo {
+        papoy("D%d\n", k);
+        k := k minus 1;
+    } loopa (k > 0);
+
+    backa 0;
+}

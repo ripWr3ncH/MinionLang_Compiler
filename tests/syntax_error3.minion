@@ -1,0 +1,16 @@
+$$ Syntax Error Test 3: Invalid expressions
+
+#bringy <stdio.h>
+
+banana starta() {
+    $$ ERROR: Invalid assignment operator (using = instead of :=)
+    banana x = 10;
+    
+    $$ ERROR: Missing operand
+    banana y := 5 add;
+    
+    $$ ERROR: Double operators
+    banana z := x add add y;
+    
+    backa 0;
+}

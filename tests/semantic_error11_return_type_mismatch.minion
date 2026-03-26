@@ -1,0 +1,12 @@
+$$ Semantic Error Test 11: Return type mismatch
+#bringy <stdio.h>
+
+banana giveText() {
+    backa "hello";
+}
+
+banana starta() {
+    banana x := giveText();
+    papoy("x = %d", x);
+    backa 0;
+}

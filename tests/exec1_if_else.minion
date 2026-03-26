@@ -1,0 +1,14 @@
+$$ Execution Proof Test 1: If-Else
+#bringy <stdio.h>
+
+banana starta() {
+    banana x := 7;
+
+    kaba (x > 5) {
+        papoy("GT\n");
+    } bababa {
+        papoy("LE\n");
+    }
+
+    backa 0;
+}

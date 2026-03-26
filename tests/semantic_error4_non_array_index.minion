@@ -1,0 +1,9 @@
+$$ Semantic Error Test 4: Non-array indexed access
+
+#bringy <stdio.h>
+
+banana starta() {
+    banana x := 10;
+    x[0] := 3;  $$ x is not an array
+    backa 0;
+}

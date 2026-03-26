@@ -1,0 +1,8 @@
+$$ Semantic Error Test 10: Undefined function call
+#bringy <stdio.h>
+
+banana starta() {
+    mystery(5);
+    papoy("undefined call check");
+    backa 0;
+}

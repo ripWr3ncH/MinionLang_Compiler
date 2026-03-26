@@ -1,0 +1,12 @@
+$$ Execution Proof Test 3: Functions and Return
+#bringy <stdio.h>
+
+banana addTwo(banana a, banana b) {
+    backa a add b;
+}
+
+banana starta() {
+    banana result := addTwo(4, 6);
+    papoy("R=%d\n", result);
+    backa 0;
+}

@@ -1,0 +1,133 @@
+$$ MinionLang Sample Program
+$$ Demonstrates all language features
+
+#bringy <stdio.h>
+#bringy <math.h>
+#setty MAX_VALUE 100
+
+$* 
+   This is a multi-line comment
+   MinionLang is fun!
+*$
+
+banana starta() {
+    $$ Variable declarations
+    banana x := 10;
+    banana y := 5;
+    smoothie pi := 3.14159;
+    megasmoot bigNum := 123456.789;
+    chibi letter := 'A';
+    yesno flag := 1;
+    loooong banana bigInt := 9999999;
+    
+    $$ Arithmetic operations
+    banana sum := x add y;
+    banana diff := x minus y;
+    banana product := x mul y;
+    banana quotient := x divide y;
+    banana remainder := x mod y;
+    
+    $$ If-else statement
+    kaba (x > y) {
+        papoy("x is greater than y");
+    } bababa kaba (x == y) {
+        papoy("x is equal to y");
+    } bababa {
+        papoy("x is less than y");
+    }
+    
+    $$ Logical operators
+    kaba (flag AND (x > 0)) {
+        papoy("Flag is true AND x is positive");
+    }
+    
+    kaba (NOT flag OR (y <= 0)) {
+        papoy("Either flag is false OR y is non-positive");
+    }
+    
+    $$ For loop
+    againa(banana i := 0 : i < 10 : i := i add 1) {
+        papoy("Loop iteration");
+    }
+    
+    $$ While loop
+    banana count := 0;
+    loopa(count < 5) {
+        papoy("While loop");
+        count := count add 1;
+    }
+    
+    $$ Do-while loop
+    dodo {
+        papoy("Do-while loop");
+        count := count minus 1;
+    } loopa(count > 0)
+    
+    $$ Switch statement
+    choosey(x) {
+        optiona 1:
+            papoy("x is 1");
+            stoppo;
+        optiona 10:
+            papoy("x is 10");
+            stoppo;
+        otherwise:
+            papoy("x is something else");
+    }
+    
+    $$ Math functions
+    smoothie sqrtVal := root(16.0);
+    smoothie powVal := power(2.0, 3.0);
+    smoothie floorVal := flr(3.7);
+    smoothie ceilVal := ceil(3.2);
+    banana absVal := abs(minus 5);
+    smoothie logVal := loggy(10.0);
+    smoothie sinVal := sine(0.5);
+    smoothie cosVal := cosine(0.5);
+    smoothie tanVal := tan(0.5);
+    smoothie asinVal := asine(0.5);
+    smoothie acosVal := acosine(0.5);
+    smoothie atanVal := atan(0.5);
+    yesno isPrime := primey(7);
+    
+    $$ Input from user
+    banana userInput;
+    takey("%d", userInput);
+    
+    $$ Relational operators test
+    kaba (x < y) { papoy("less than"); }
+    kaba (x > y) { papoy("greater than"); }
+    kaba (x <= y) { papoy("less or equal"); }
+    kaba (x >= y) { papoy("greater or equal"); }
+    kaba (x == y) { papoy("equal"); }
+    kaba (x != y) { papoy("not equal"); }
+    
+    $$ XOR operation
+    kaba (flag XOR (x > 0)) {
+        papoy("XOR is true");
+    }
+    
+    $$ Array declaration
+    banana arr[10];
+    arr[0] := 1;
+    arr[1] := 2;
+    
+    $$ Continue statement test
+    againa(banana j := 0 : j < 5 : j := j add 1) {
+        kaba (j == 2) {
+            gooo;
+        }
+        papoy("Value of j");
+    }
+    
+    backa 0;
+}
+
+$$ Function with return type indicator
+nada printMessage() :-> nada {
+    papoy("Hello from MinionLang!");
+}
+
+banana addNumbers(banana a, banana b) :-> banana {
+    backa a add b;
+}

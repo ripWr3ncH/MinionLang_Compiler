@@ -1,0 +1,17 @@
+# MinionLang Simple IR (3-address code)
+# Includes tiny constant folding
+
+# a := 2 add 3 mul 4
+a = 14
+
+# b := (a add 10) mul 2
+t1 = a + 10
+t2 = t1 * 2
+b = t2
+
+# c := 100 minus 25 minus 5
+c = 70
+
+# d := (8 add 2) mul (3 add 1)
+d = 40
+

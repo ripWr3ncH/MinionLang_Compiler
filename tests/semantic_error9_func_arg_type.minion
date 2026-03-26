@@ -1,0 +1,13 @@
+$$ Semantic Error Test 9: Function argument type mismatch
+
+#bringy <stdio.h>
+
+banana incOne(banana a) {
+    backa a add 1;
+}
+
+banana starta() {
+    banana r := incOne("hello");
+    papoy("%d", r);
+    backa 0;
+}

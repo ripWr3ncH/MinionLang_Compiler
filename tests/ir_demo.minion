@@ -1,0 +1,10 @@
+$$ IR demo input
+#bringy <stdio.h>
+
+banana starta() {
+    banana a := 2 add 3 mul 4;
+    banana b := (a add 10) mul 2;
+    banana c := 100 minus 25 minus 5;
+    banana d := (8 add 2) mul (3 add 1);
+    backa 0;
+}

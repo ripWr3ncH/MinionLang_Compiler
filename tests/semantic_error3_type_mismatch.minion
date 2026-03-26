@@ -1,0 +1,8 @@
+$$ Semantic Error Test 3: Type mismatch assignment
+
+#bringy <stdio.h>
+
+banana starta() {
+    banana x := "hello";  $$ int assigned string
+    backa 0;
+}

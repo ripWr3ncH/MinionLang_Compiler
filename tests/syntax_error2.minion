@@ -1,0 +1,18 @@
+$$ Syntax Error Test 2: Missing braces
+
+#bringy <stdio.h>
+
+banana starta() {
+    banana x := 5;
+    
+    $$ ERROR: Missing opening brace after condition
+    kaba (x > 0)
+        papoy("No braces");  $$ This is valid in C, let's see
+    
+    $$ ERROR: Unmatched braces
+    kaba (x < 10) {
+        papoy("Inside");
+    $$ Missing closing brace here
+    
+    backa 0;
+}

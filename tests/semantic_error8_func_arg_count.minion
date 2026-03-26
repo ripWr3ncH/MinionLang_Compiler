@@ -1,0 +1,13 @@
+$$ Semantic Error Test 8: Function argument count mismatch
+
+#bringy <stdio.h>
+
+banana addTwo(banana a, banana b) {
+    backa a add b;
+}
+
+banana starta() {
+    banana r := addTwo(5);
+    papoy("%d", r);
+    backa 0;
+}
