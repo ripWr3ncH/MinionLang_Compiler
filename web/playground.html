@@ -1,62 +1,99 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MinionLang Playground</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700&family=Bangers&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>MinionLang Playground</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&amp;family=Be+Vietnam+Pro:wght@400;500&amp;family=Space+Grotesk:wght@500;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "surface": "#f9f9f9",
+          "on-surface": "#1a1c1c",
+          "on-surface-variant": "#4c4733",
+          "secondary": "#0b5cb9",
+          "secondary-container": "#649dfe",
+          "on-secondary-container": "#00346f",
+          "primary-container": "#ffe135",
+          "on-primary-container": "#736300",
+          "surface-container-lowest": "#ffffff",
+          "surface-container-low": "#f3f3f3",
+          "surface-container-highest": "#e2e2e2",
+          "outline-variant": "#cec6ac"
+        },
+        fontFamily: {
+          "headline": ["Plus Jakarta Sans"],
+          "body": ["Be Vietnam Pro"],
+          "label": ["Space Grotesk"]
+        }
+      }
+    }
+  }
+</script>
 </head>
-<body>
-  <div class="bg-shape shape-a"></div>
-  <div class="bg-shape shape-b"></div>
+<body class="bg-surface font-body text-on-surface min-h-screen overflow-x-hidden">
+<header class="w-full sticky top-0 z-50 bg-[#f9f9f9]">
+  <div class="flex justify-between items-center h-20 px-6 md:px-8 max-w-7xl mx-auto">
+    <a href="/" class="text-2xl font-black tracking-tight font-headline">MinionLang</a>
+    <nav class="hidden md:flex gap-8 items-center">
+      <a class="text-[#1a1c1c] opacity-70 hover:opacity-100 transition-opacity font-label" href="/#features">Features</a>
+      <a class="text-[#1a1c1c] opacity-70 hover:opacity-100 transition-opacity font-label" href="/#pipeline">Pipeline</a>
+      <a class="text-[#1a1c1c] opacity-70 hover:opacity-100 transition-opacity font-label" href="/#faq">FAQ</a>
+      <a class="text-[#1560BD] font-bold border-b-4 border-[#FFE135] pb-1 font-label" href="/playground.html">Playground</a>
+    </nav>
+    <a href="/" class="bg-primary-container text-on-primary-container px-5 py-2 rounded-full font-label font-bold hover:scale-105 transition-transform duration-200">Back Home</a>
+  </div>
+</header>
 
-  <main class="layout">
-    <header class="hero">
-      <p class="badge">Minion-Themed Compiler Playground</p>
-      <h1>MinionLang Playground</h1>
-      <p class="subtitle">Write MinionLang, run it in-browser, and inspect tokens, diagnostics, and transpiled JavaScript.</p>
-    </header>
+<main class="max-w-7xl mx-auto px-4 md:px-8 py-8 md:py-10">
+  <section class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#0b5cb9] to-[#2d77dc] text-white p-6 md:p-8 shadow-xl">
+    <div class="absolute -right-14 -top-12 w-48 h-48 rounded-full bg-white/10"></div>
+    <div class="absolute -left-16 -bottom-16 w-52 h-52 rounded-full bg-[#ffe135]/20"></div>
+    <p class="inline-flex items-center gap-2 bg-white/15 px-3 py-1 rounded-full text-sm font-label font-bold">Interactive Compiler Playground</p>
+    <h1 class="text-4xl md:text-5xl font-black font-headline mt-3">Run MinionLang In Browser</h1>
+    <p class="text-white/90 mt-2 max-w-3xl">Write code, tokenize, execute, and inspect transpiled JavaScript in one place.</p>
+  </section>
 
-    <section class="panel editor-panel">
-      <div class="panel-head">
-        <h2>Code Editor</h2>
-        <div class="actions">
-          <button id="btn-example" class="btn btn-secondary">Load Example</button>
-          <button id="btn-tokenize" class="btn btn-secondary">Tokenize</button>
-          <button id="btn-run" class="btn btn-primary">Run</button>
-          <button id="btn-clear" class="btn btn-ghost">Clear</button>
-        </div>
+  <section class="mt-6 bg-surface-container-lowest rounded-2xl shadow-lg p-4 md:p-5 border border-slate-200">
+    <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
+      <h2 class="text-2xl font-black font-headline">Code Editor</h2>
+      <div class="flex flex-wrap gap-2">
+        <button id="btn-example" class="px-4 py-2 rounded-xl bg-[#fff5c6] hover:bg-[#ffe98b] font-label font-bold">Load Example</button>
+        <button id="btn-tokenize" class="px-4 py-2 rounded-xl bg-[#dce9ff] hover:bg-[#bfd8ff] font-label font-bold">Tokenize</button>
+        <button id="btn-run" class="px-4 py-2 rounded-xl bg-[#0b5cb9] text-white hover:bg-[#094d9b] font-label font-bold">Run</button>
+        <button id="btn-clear" class="px-4 py-2 rounded-xl bg-[#ececec] hover:bg-[#dbdbdb] font-label font-bold">Clear</button>
       </div>
-      <textarea id="editor" spellcheck="false"></textarea>
-      <p class="hint">Supported runtime subset: declarations, arithmetic, if/else, loops, functions, papoy/backa, assignment with :=.</p>
-    </section>
+    </div>
+    <textarea id="editor" spellcheck="false" class="w-full min-h-[280px] md:min-h-[340px] rounded-xl border-2 border-slate-200 bg-[#fffdf5] p-3 font-mono text-sm resize-y"></textarea>
+    <p class="text-sm text-on-surface-variant mt-2">Supported runtime subset: declarations, arithmetic, if/else, loops, functions, papoy/backa, assignment with :=.</p>
+  </section>
 
-    <section class="grid">
-      <article class="panel">
-        <h3>Program Output</h3>
-        <pre id="output" class="output"></pre>
-      </article>
+  <section class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+    <article class="bg-surface-container-lowest rounded-2xl shadow-lg p-4 border border-slate-200">
+      <h3 class="text-xl font-black font-headline mb-2">Program Output</h3>
+      <pre id="output" class="m-0 min-h-[160px] max-h-[320px] overflow-auto rounded-xl bg-[#0f172a] text-[#dbeafe] p-3 text-sm"></pre>
+    </article>
 
-      <article class="panel">
-        <h3>Diagnostics</h3>
-        <pre id="diagnostics" class="output"></pre>
-      </article>
+    <article class="bg-surface-container-lowest rounded-2xl shadow-lg p-4 border border-slate-200">
+      <h3 class="text-xl font-black font-headline mb-2">Diagnostics</h3>
+      <pre id="diagnostics" class="m-0 min-h-[160px] max-h-[320px] overflow-auto rounded-xl bg-[#0f172a] text-[#dbeafe] p-3 text-sm"></pre>
+    </article>
 
-      <article class="panel panel-wide">
-        <h3>Tokens</h3>
-        <pre id="tokens" class="output"></pre>
-      </article>
+    <article class="bg-surface-container-lowest rounded-2xl shadow-lg p-4 border border-slate-200 md:col-span-2">
+      <h3 class="text-xl font-black font-headline mb-2">Tokens</h3>
+      <pre id="tokens" class="m-0 min-h-[160px] max-h-[320px] overflow-auto rounded-xl bg-[#0f172a] text-[#dbeafe] p-3 text-sm"></pre>
+    </article>
 
-      <article class="panel panel-wide">
-        <h3>Transpiled JavaScript</h3>
-        <pre id="transpiled" class="output"></pre>
-      </article>
-    </section>
-  </main>
+    <article class="bg-surface-container-lowest rounded-2xl shadow-lg p-4 border border-slate-200 md:col-span-2">
+      <h3 class="text-xl font-black font-headline mb-2">Transpiled JavaScript</h3>
+      <pre id="transpiled" class="m-0 min-h-[160px] max-h-[320px] overflow-auto rounded-xl bg-[#0f172a] text-[#dbeafe] p-3 text-sm"></pre>
+    </article>
+  </section>
+</main>
 
-  <script src="app.js"></script>
-</body>
-</html>
+<script src="app.js"></script>
+</body></html>
