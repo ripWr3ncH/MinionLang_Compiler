@@ -54,7 +54,7 @@ function stripComments(src) {
 
 function tokenize(src) {
   const clean = stripComments(src);
-  const rx = /"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|:=|:->|<=|>=|==|!=|&&|\|\||#bringy|#setty|[(){}\[\],;:]|[+\-*/%<>]|[A-Za-z_][A-Za-z0-9_]*|\d+\.\d+|\d+|\S/g;
+  const rx = /<[^>\n]+>|"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|:=|:->|<=|>=|==|!=|&&|\|\||#bringy|#setty|[(){}\[\],;:]|[+\-*/%<>]|[A-Za-z_][A-Za-z0-9_]*|\d+\.\d+|\d+|\S/g;
   const tokens = [];
   const diagnostics = [];
 
@@ -64,6 +64,7 @@ function tokenize(src) {
     const line = clean.slice(0, m.index).split("\n").length;
 
     let type = "UNKNOWN";
+    if (/^<[^>\n]+>$/.test(text)) type = "HEADER_FILE";
     if (/^"/.test(text)) type = "STRING_LITERAL";
     else if (/^'/.test(text)) type = "CHAR_LITERAL";
     else if (/^\d+\.\d+$/.test(text)) type = "FLOAT_LITERAL";
