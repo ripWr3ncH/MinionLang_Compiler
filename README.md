@@ -12,7 +12,7 @@
 
 ## 📋 Overview
 
-This project implements the **lexical analysis phase** of a compiler for **MinionLang**, a C-inspired programming language with Minion-themed keywords. Built using **Flex** (Fast Lexical Analyzer Generator), it tokenizes MinionLang source code for future parsing with Bison.
+This project implements a **complete educational compiler workflow** for **MinionLang**, a C-inspired programming language with Minion-themed keywords. It includes lexer (Flex), parser (Bison), semantic checks, execution-proof translation, and a browser-based MinionLang playground for quick experimentation.
 
 ### What is MinionLang?
 
@@ -130,6 +130,20 @@ This runs 3 executable MinionLang test programs through:
 
 This generates a simple 3-address IR and folds constant-only expressions.
 
+### Option 7: Web Playground (Minion Theme)
+
+Open in browser after deployment or local static hosting:
+
+```bash
+web/index.html
+```
+
+Features:
+- Write MinionLang in a code editor
+- Run code in-browser (transpiled JS runtime subset)
+- View output, diagnostics, tokens, and transpiled JavaScript
+- Minion-based UI theme
+
 ### Final Lab Command Sequence
 
 ```bash
@@ -140,6 +154,18 @@ This generates a simple 3-address IR and folds constant-only expressions.
 .\minionir.exe tests\ir_demo.minion tests\ir_demo.ir
 .\run_full_demo.bat
 ```
+
+## Vercel Deployment (GitHub)
+
+This repository is already Vercel-ready via `vercel.json`.
+
+1. Import repository in Vercel.
+2. Keep Framework Preset as `Other`.
+3. Keep build command empty.
+4. Deploy.
+
+Vercel serves the playground from:
+- `/` -> `web/index.html`
 
 ### Manual Build
 
