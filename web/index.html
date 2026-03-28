@@ -90,7 +90,7 @@
 <span class="text-secondary">Compiler</span>
 </h1>
 <p class="max-w-2xl text-xl text-on-surface-variant font-medium">
-                    A Flex + Bison based compiler with semantic analysis, execution proof, and IR optimization. Built for performance, designed for fun.
+          A Flex + Bison based compiler with semantic analysis, execution-proof testing, and IR optimization for Compiler Design Lab.
                 </p>
 <div class="flex flex-wrap justify-center gap-4 mt-4">
 <a class="bg-primary-container text-on-primary-container px-10 py-5 rounded-full font-headline font-extrabold text-xl shadow-[0_20px_40px_rgba(21,96,189,0.08)] hover:scale-105 transition-transform" href="/playground.html">
@@ -108,10 +108,14 @@
 <div class="w-3 h-3 rounded-full bg-primary-container"></div>
 <div class="w-3 h-3 rounded-full bg-secondary-container"></div>
 </div>
-<pre class="font-label text-surface-bright text-lg leading-relaxed"><span class="text-primary-container">func</span> calculateBanana(qty: int) {
-  <span class="text-secondary-container">let</span> base = 10;
-  <span class="text-secondary-container">let</span> multiplier = 2 + 3; <span class="opacity-40">// Constant Folding ready</span>
-  <span class="text-primary-container">return</span> qty * (base + multiplier);
+<pre class="font-label text-surface-bright text-lg leading-relaxed"><span class="text-primary-container">banana</span> square(<span class="text-secondary-container">banana</span> n) {
+  <span class="text-primary-container">backa</span> n <span class="text-secondary-container">mul</span> n;
+}
+
+<span class="text-primary-container">banana</span> starta() {
+  <span class="text-secondary-container">banana</span> a <span class="text-primary-container">:=</span> 5;
+  papoy("%d", square(a));
+  <span class="text-primary-container">backa</span> 0;
 }</pre>
 </div>
 </div>
@@ -124,7 +128,7 @@
 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 <div class="md:col-span-2 bg-surface-container-lowest p-10 rounded-xl shadow-[0_20px_40px_rgba(21,96,189,0.08)]">
 <h3 class="text-3xl font-black font-headline mb-4">Semantic Checks</h3>
-<p class="text-on-surface-variant text-lg max-w-md">Robust scope and type validation ensures your Minion code is logically sound before it ever hits the processor.</p>
+<p class="text-on-surface-variant text-lg max-w-md">Scope, declaration-order, return, and function-call validation ensure your MinionLang programs are logically correct.</p>
 </div>
 <div class="bg-secondary-container p-10 rounded-xl text-on-secondary-container">
 <h3 class="text-2xl font-black font-headline mb-2">Lexical Analysis</h3>
@@ -136,7 +140,7 @@
 </div>
 <div class="bg-surface-container-highest p-10 rounded-xl md:col-span-2">
 <h3 class="text-2xl font-black font-headline mb-4">Execution Proof</h3>
-<p class="text-on-surface-variant font-medium">We cross-reference MinionLang execution with C output to verify translation fidelity.</p>
+<p class="text-on-surface-variant font-medium">MinionLang source is translated to C, compiled with GCC, executed, and compared against expected output files.</p>
 </div>
 <div class="bg-on-surface p-10 rounded-xl text-surface-bright">
 <h3 class="text-2xl font-black font-headline mb-2">IR Generation</h3>

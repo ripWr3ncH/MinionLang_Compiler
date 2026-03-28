@@ -27,6 +27,8 @@ const outputEl = document.getElementById("output");
 const diagnosticsEl = document.getElementById("diagnostics");
 const tokensEl = document.getElementById("tokens");
 const transpiledEl = document.getElementById("transpiled");
+const editorLinesEl = document.getElementById("editor-lines");
+const editorCursorEl = document.getElementById("editor-cursor");
 
 const keywords = new Set([
   "banana", "smoothie", "chibi", "bool", "void",
@@ -38,7 +40,34 @@ const keywords = new Set([
 const typeWords = new Set(["banana", "smoothie", "chibi", "bool", "void"]);
 
 function setPanel(el, value) {
+  if (!el) return;
   el.textContent = value || "";
+}
+
+function updateEditorStatus() {
+  if (!editor) return;
+  const value = editor.value || "";
+  const start = editor.selectionStart || 0;
+  const upToCursor = value.slice(0, start);
+  const line = upToCursor.split("\n").length;
+  const col = start - upToCursor.lastIndexOf("\n");
+  const lines = value.length ? value.split("\n").length : 1;
+
+  setPanel(editorLinesEl, String(lines));
+  setPanel(editorCursorEl, `Ln ${line}, Col ${col}`);
+}
+
+function insertSnippet(snippet) {
+  if (!editor) return;
+  const start = editor.selectionStart;
+  const end = editor.selectionEnd;
+  const value = editor.value;
+  editor.value = value.slice(0, start) + snippet + value.slice(end);
+  const nextPos = start + snippet.length;
+  editor.selectionStart = nextPos;
+  editor.selectionEnd = nextPos;
+  editor.focus();
+  updateEditorStatus();
 }
 
 function stripComments(src) {
@@ -210,7 +239,61 @@ document.getElementById("btn-clear").addEventListener("click", () => {
   setPanel(diagnosticsEl, "");
   setPanel(tokensEl, "");
   setPanel(transpiledEl, "");
+  updateEditorStatus();
 });
+
+if (editor) {
+  editor.addEventListener("input", updateEditorStatus);
+  editor.addEventListener("click", updateEditorStatus);
+  editor.addEventListener("keyup", updateEditorStatus);
+  editor.addEventListener("keydown", (e) => {
+    if (e.key === "Tab") {
+      e.preventDefault();
+      const start = editor.selectionStart;
+      const end = editor.selectionEnd;
+      const value = editor.value;
+      editor.value = value.slice(0, start) + "    " + value.slice(end);
+      editor.selectionStart = start + 4;
+      editor.selectionEnd = start + 4;
+      updateEditorStatus();
+      return;
+    }
+
+    if (e.ctrlKey && e.key === "Enter") {
+      e.preventDefault();
+      runProgram(editor.value);
+    }
+  });
+}
+
+const btnInsertMain = document.getElementById("btn-insert-main");
+if (btnInsertMain) {
+  btnInsertMain.addEventListener("click", () => {
+    insertSnippet("banana starta() {\n    papoy(\"Hello World\");\n    backa 0;\n}\n");
+  });
+}
+
+const btnInsertIf = document.getElementById("btn-insert-if");
+if (btnInsertIf) {
+  btnInsertIf.addEventListener("click", () => {
+    insertSnippet("kaba (x > 0) {\n    papoy(\"positive\");\n} bababa {\n    papoy(\"non-positive\");\n}\n");
+  });
+}
+
+const btnInsertLoop = document.getElementById("btn-insert-loop");
+if (btnInsertLoop) {
+  btnInsertLoop.addEventListener("click", () => {
+    insertSnippet("banana i := 0;\nloopa (i < 5) {\n    papoy(\"%d\", i);\n    i := i add 1;\n}\n");
+  });
+}
+
+const btnInsertFunc = document.getElementById("btn-insert-func");
+if (btnInsertFunc) {
+  btnInsertFunc.addEventListener("click", () => {
+    insertSnippet("banana addTwo(banana a, banana b) {\n    backa a add b;\n}\n");
+  });
+}
 
 editor.value = sample;
 runProgram(sample);
+updateEditorStatus();

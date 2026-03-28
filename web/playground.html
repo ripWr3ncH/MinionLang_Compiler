@@ -68,8 +68,17 @@
         <button id="btn-clear" class="px-4 py-2 rounded-xl bg-[#ececec] hover:bg-[#dbdbdb] font-label font-bold">Clear</button>
       </div>
     </div>
+    <div class="flex flex-wrap gap-2 mb-3">
+      <button id="btn-insert-main" class="px-3 py-1.5 rounded-lg bg-[#fff5c6] hover:bg-[#ffe98b] text-sm font-label font-bold">Insert starta()</button>
+      <button id="btn-insert-if" class="px-3 py-1.5 rounded-lg bg-[#dce9ff] hover:bg-[#bfd8ff] text-sm font-label font-bold">Insert kaba/bababa</button>
+      <button id="btn-insert-loop" class="px-3 py-1.5 rounded-lg bg-[#dce9ff] hover:bg-[#bfd8ff] text-sm font-label font-bold">Insert loopa</button>
+      <button id="btn-insert-func" class="px-3 py-1.5 rounded-lg bg-[#fff5c6] hover:bg-[#ffe98b] text-sm font-label font-bold">Insert function</button>
+    </div>
     <textarea id="editor" spellcheck="false" class="w-full min-h-[280px] md:min-h-[340px] rounded-xl border-2 border-slate-200 bg-[#fffdf5] p-3 font-mono text-sm resize-y"></textarea>
-    <p class="text-sm text-on-surface-variant mt-2">Supported runtime subset: declarations, arithmetic, if/else, loops, functions, papoy/backa, assignment with :=.</p>
+    <div class="mt-2 flex flex-wrap items-center justify-between gap-2 text-sm text-on-surface-variant">
+      <p>Supported runtime subset: declarations, arithmetic, if/else, loops, functions, papoy/backa, assignment with :=.</p>
+      <p class="font-label">Lines: <span id="editor-lines">1</span> | Cursor: <span id="editor-cursor">Ln 1, Col 1</span> | Tip: Tab indents, Ctrl+Enter runs</p>
+    </div>
   </section>
 
   <section class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
