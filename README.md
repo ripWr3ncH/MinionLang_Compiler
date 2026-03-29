@@ -38,61 +38,41 @@ banana starta() {
 
 ## 🚀 Quick Start
 
-### Option 1: Build and Run Lexer (Token Output)
+If `make` is not available in your Windows shell, use `mingw32-make` with the same targets.
 
-1. **Build the lexer:**
-   ```bash
-   .\build.bat
-   ```
+### Option 1: Build Everything (Recommended)
 
-2. **Run on a test file:**
-   ```bash
-   .\minionlexer.exe tests\sample.minion tests\sample.tokens
-   ```
+```bash
+make all
+```
 
-3. **View output:**
-   ```bash
-   type tests\sample.tokens
-   ```
+This builds:
+- lexer (`minionlexer.exe`)
+- parser (`minionparser.exe`)
+- translator (`minion2c.exe`)
+- IR generator (`minionir.exe`)
 
-### Option 2: Build and Run Parser (Syntax Checking)
+### Option 2: Run Individual Phase Commands
 
-1. **Build the parser:**
-   ```bash
-   .\build_parser.bat
-   ```
+```bash
+make lexer
+make parser
+make translator
+make ir
+```
 
-2. **Run syntax analysis:**
-   ```bash
-   .\minionparser.exe tests\valid_syntax.minion
-   ```
+### Option 3: Run Core Tests
 
-3. **Test error detection:**
-   ```bash
-   .\minionparser.exe tests\syntax_error1.minion
-   ```
-
-4. **Run semantic test suite:**
-   ```bash
-   .\run_semantic_tests.bat
-   ```
-
-### Option 3: MinionLang to C Translation (Optional)
-
-1. **Build the translator:**
-   ```bash
-   .\build_translator.bat
-   ```
-
-2. **Translate a MinionLang file:**
-   ```bash
-   .\minion2c.exe tests\sample.minion tests\sample_translated.c
-   ```
+```bash
+make lexer-test
+make syntax-tests
+make semantic-tests
+```
 
 ### Option 4: Run Full Lab Demo (All Checks)
 
 ```bash
-.\run_full_demo.bat
+make full-demo
 ```
 
 This runs:
@@ -112,7 +92,7 @@ Expected summary:
 ### Option 5: Execution-Proof Runtime Tests
 
 ```bash
-.\run_execution_proof_tests.bat
+make exec-proof
 ```
 
 This runs 3 executable MinionLang test programs through:
@@ -124,8 +104,7 @@ This runs 3 executable MinionLang test programs through:
 ### Option 6: IR + Constant Folding Demo (Optional)
 
 ```bash
-.\build_ir.bat
-.\minionir.exe tests\ir_demo.minion tests\ir_demo.ir
+make ir-demo
 ```
 
 This generates a simple 3-address IR and folds constant-only expressions.
@@ -147,12 +126,11 @@ Features:
 ### Final Lab Command Sequence
 
 ```bash
-.\build_parser.bat
-.\run_semantic_tests.bat
-.\run_execution_proof_tests.bat
-.\build_ir.bat
-.\minionir.exe tests\ir_demo.minion tests\ir_demo.ir
-.\run_full_demo.bat
+make parser
+make semantic-tests
+make exec-proof
+make ir-demo
+make full-demo
 ```
 
 ## Vercel Deployment (GitHub)
@@ -213,8 +191,9 @@ flexing/
 ├── GnuWin32/
 │   └── bin/
 │       └── flex.exe          # Flex tool (2.5.4)
-├── build.bat                 # Automated build script
-├── run_test.bat              # Test runner script
+├── Makefile                  # Unified build/test runner
+├── run_execution_proof_tests.bat # End-to-end runtime proof tests
+├── run_full_demo.bat         # Full demonstration workflow
 ├── lex.yy.c                  # Generated C code (after build)
 └── minionlexer.exe           # Compiled lexer (after build)
 ```
@@ -252,6 +231,7 @@ flexing/
 | [TESTING_AND_DEBUGGING.md](docs/TESTING_AND_DEBUGGING.md) | Build, run, expected outputs | Lab demonstration and debugging |
 | [COMPLETE_VIVA_PREP_GUIDE.md](docs/COMPLETE_VIVA_PREP_GUIDE.md) | End-to-end viva preparation | Answering teacher questions confidently |
 | [VIVA_QUICK_REFERENCE.md](docs/VIVA_QUICK_REFERENCE.md) | Quick reference guide | Viva/presentation preparation |
+| [COMPLETE_PROJECT_EXPLANATION.md](docs/COMPLETE_PROJECT_EXPLANATION.md) | Beginner-friendly full project explanation | Learning and explaining the full project easily |
 | [context.md](contexts/context.md) | Language design and mappings | Understanding MinionLang |
 
 ---
