@@ -166,7 +166,7 @@ web/index.html
 Features:
 - Write MinionLang in a code editor
 - Run code in-browser (transpiled JS runtime subset)
-- View output, diagnostics, tokens, and transpiled JavaScript
+- View output, diagnostics, tokens, and transpiled C
 - Minion-based UI theme
 
 ### Final Lab Command Sequence

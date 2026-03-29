@@ -26,7 +26,7 @@ The main objective was to design and implement a practical compiler pipeline tha
 
 ### 4.1 Dual Execution Paths (Very Unique for a Lab Project)
 The project supports two practical execution experiences:
-1. Browser Playground Path: MinionLang -> JavaScript transpilation -> in-browser execution and diagnostics.
+1. Browser Playground Path: MinionLang -> C transpilation display + in-browser runtime execution with diagnostics.
 2. Native Execution-Proof Path: MinionLang -> C translation -> GCC compilation -> binary execution with expected-output comparison.
 
 This dual-mode design makes the project both demo-friendly and technically rigorous.

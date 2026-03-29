@@ -18,6 +18,12 @@ banana starta() {
     banana s := square(a);
     papoy("square is %d", s);
     papoy("b = %d", b);
-
+	
+      $$ While loop
+    banana count := 0;
+    loopa(count < 5) {
+        papoy("While loop");
+        count := count add 1;
+    }
     backa 0;
 }

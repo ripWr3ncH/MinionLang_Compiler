@@ -47,13 +47,14 @@ Step 4: Static syntax sanity checks
 - `staticAnalyze()` checks common syntax mistakes (for example unknown type keyword, bracket mismatch).
 - If syntax issues exist, execution is skipped and diagnostics are shown.
 
-Step 5: MinionLang -> JavaScript conversion
-- `transpileToJs()` maps Minion syntax to JS:
+Step 5: MinionLang transpilation in website
+- `transpileToC()` maps Minion syntax to C for the Transpiled C panel.
+- `transpileToJs()` maps Minion syntax to JS for browser execution runtime.
+- Common mapping examples:
   - `kaba` -> `if`, `bababa` -> `else`
   - `add/mul/minus/...` -> `+/*/-/...`
   - `:=` -> `=`
-  - `banana foo(...)` -> `function foo(...)`
-  - `papoy(...)` -> `__print(...)`
+  - `papoy(...)` -> `printf` (C display) and `__print` (JS runtime)
 
 Step 6: Runtime wrapper injection
 - JS wrapper adds:
@@ -61,7 +62,7 @@ Step 6: Runtime wrapper injection
   - `__fmt()` for `%d/%f/%s` formatting
   - `__scan()` placeholder (not fully interactive in browser)
 
-Step 7: Execute transpiled JS
+Step 7: Execute runtime JS
 - `new Function(runtime)()` runs generated JS.
 - If `starta()` exists, it is called.
 
@@ -97,7 +98,7 @@ This is the pipeline that produces output most like normal compiled code executi
 - Lexer (`.l`) is responsible for token-level understanding.
 - Parser (`.y`) is responsible for grammar + semantic validity.
 - Valid lexer/parser behavior is a prerequisite for trusted output.
-- In website mode, output comes from JS transpilation runtime.
+- In website mode, displayed transpilation is C, but execution uses internal JS runtime.
 - In execution-proof mode, output comes from translated C binary.
 
 So, conceptually:
@@ -106,7 +107,7 @@ Minion source -> Lexer tokens -> Parser validation -> (Translator) -> C code -> 
 
 And website fast path:
 
-Minion source -> Browser tokenizer/checks -> JS transpile -> JS runtime -> Final output
+Minion source -> Browser tokenizer/checks -> C display transpile + JS runtime transpile -> JS runtime -> Final output
 
 ## 3. Main Part of `.l` File (`src/minionlang.l`)
 

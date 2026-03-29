@@ -107,18 +107,18 @@ Website runtime files:
 Flow in browser:
 1. Tokenize source for token panel.
 2. Static checks for common syntax issues.
-3. Transpile MinionLang to JavaScript:
+3. Transpile MinionLang to C for display panel and to JS for runtime execution:
    - `kaba` -> `if`
    - `bababa` -> `else`
    - `add` -> `+`
    - `mul` -> `*`
    - `:=` -> `=`
    - `backa` -> `return`
-   - `papoy` -> internal print helper
+    - `papoy` -> `printf` in C display, internal print helper in runtime JS
 4. Execute generated JS in sandboxed function.
 5. Collect printed lines and show Program Output panel.
 
-So website output is produced by transpiled JS execution.
+So website output is produced by runtime JS execution, while the transpiled panel shows C.
 
 ## 7) Stage 4B: Native Execution-Proof Path (Translator -> C -> EXE)
 
@@ -164,7 +164,7 @@ Complete conceptual pipeline:
 3. Parser validates grammar (`.y` rules)
 4. Semantic checks validate meaning
 5. Execution path:
-   - Website: transpile to JS and execute in browser
+    - Website: show transpiled C and execute with internal JS runtime
    - Native: translate to C, compile, run EXE
 6. Print output lines
 
