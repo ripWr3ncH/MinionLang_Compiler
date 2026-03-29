@@ -1,0 +1,23 @@
+$$ MinionLang playground sample
+#bringy <stdio.h>
+
+banana square(banana n) {
+    backa n mul n;
+}
+
+banana starta() {
+    banana a := 5;
+    banana b := 2 add 3 mul 4;
+
+    kaba (a > 3) {
+        papoy("a is %d", a);
+    } bababa {
+        papoy("small a");
+    }
+
+    banana s := square(a);
+    papoy("square is %d", s);
+    papoy("b = %d", b);
+
+    backa 0;
+}

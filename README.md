@@ -279,6 +279,7 @@ flexing/
 | [VIVA_QUICK_REFERENCE.md](docs/VIVA_QUICK_REFERENCE.md) | Quick reference guide | Viva/presentation preparation |
 | [COMPLETE_PROJECT_EXPLANATION.md](docs/COMPLETE_PROJECT_EXPLANATION.md) | Beginner-friendly full project explanation | Learning and explaining the full project easily |
 | [understand.md](docs/understand.md) | End-to-end lexer/parser learning guide | Understanding `.l` and `.y` with run/output workflow |
+| [SAMPLE_PROGRAM_STAGE_EXPLANATION.md](docs/SAMPLE_PROGRAM_STAGE_EXPLANATION.md) | Exact walkthrough of one sample program | Explaining how `a is 5`, `square is 25`, `b = 14` are produced |
 | [context.md](contexts/context.md) | Language design and mappings | Understanding MinionLang |
 
 ---

@@ -245,6 +245,74 @@ function transpileToJs(src) {
   return code;
 }
 
+function transpileToC(src) {
+  let code = src;
+
+  // Convert Minion comments to C comments for display.
+  code = code.replace(/\$\*([\s\S]*?)\*\$/g, "/*$1*/");
+  code = code.replace(/^\s*\$\$(.*)$/gm, "//$1");
+
+  code = code.replace(/#bringy/g, "#include");
+  code = code.replace(/#setty/g, "#define");
+
+  code = code.replace(/\bbababa\s+kaba\b/g, "else if");
+  code = code.replace(/\bloooong\s+banana\b/g, "long int");
+
+  // Handle return type indicator by removing it and its explicit type hint.
+  code = code.replace(/:->\s*(loooong\s+banana|banana|smoothie|megasmoot|chibi|yesno|nada)\b/g, "");
+
+  code = code.replace(/\bbanana\b/g, "int");
+  code = code.replace(/\bsmoothie\b/g, "float");
+  code = code.replace(/\bmegasmoot\b/g, "double");
+  code = code.replace(/\bchibi\b/g, "char");
+  code = code.replace(/\byesno\b/g, "bool");
+  code = code.replace(/\bnada\b/g, "void");
+
+  code = code.replace(/\bkaba\b/g, "if");
+  code = code.replace(/\bbababa\b/g, "else");
+  code = code.replace(/\bagaina\s*\(([^)]*)\)/g, (_, inner) => `for(${inner.replace(/:/g, ";")})`);
+  code = code.replace(/\bloopa\b/g, "while");
+  code = code.replace(/\bdodo\b/g, "do");
+  code = code.replace(/\bchoosey\b/g, "switch");
+  code = code.replace(/\boptiona\b/g, "case");
+  code = code.replace(/\botherwise\b/g, "default");
+  code = code.replace(/\bstoppo\b/g, "break");
+  code = code.replace(/\bgooo\b/g, "continue");
+  code = code.replace(/\bbacka\b/g, "return");
+
+  code = code.replace(/\bstarta\b/g, "main");
+  code = code.replace(/\bpapoy\b/g, "printf");
+  code = code.replace(/\btakey\b/g, "scanf");
+
+  code = code.replace(/\bpower\b/g, "pow");
+  code = code.replace(/\broot\b/g, "sqrt");
+  code = code.replace(/\bflr\b/g, "floor");
+  code = code.replace(/\bceil\b/g, "ceil");
+  code = code.replace(/\babs\b/g, "abs");
+  code = code.replace(/\bloggy\b/g, "log");
+  code = code.replace(/\bsine\b/g, "sin");
+  code = code.replace(/\bcosine\b/g, "cos");
+  code = code.replace(/\btan\b/g, "tan");
+  code = code.replace(/\basine\b/g, "asin");
+  code = code.replace(/\bacosine\b/g, "acos");
+  code = code.replace(/\batan\b/g, "atan");
+  code = code.replace(/\bprimey\b/g, "isPrime");
+
+  code = code.replace(/\badd\b/g, "+");
+  code = code.replace(/\bminus\b/g, "-");
+  code = code.replace(/\bmul\b/g, "*");
+  code = code.replace(/\bdivide\b/g, "/");
+  code = code.replace(/\bmod\b/g, "%");
+  code = code.replace(/\bAND\b/g, "&&");
+  code = code.replace(/\bOR\b/g, "||");
+  code = code.replace(/\bNOT\b/g, "!");
+  code = code.replace(/\bXOR\b/g, "^");
+
+  code = code.replace(/:=/g, "=");
+
+  return code;
+}
+
 function runProgram(src) {
   const diagnostics = [];
   const { tokens, diagnostics: lexicalDiag } = tokenize(src);
@@ -253,7 +321,8 @@ function runProgram(src) {
   diagnostics.push(...staticDiag);
 
   const js = transpileToJs(src);
-  setPanel(transpiledEl, js);
+  const cCode = transpileToC(src);
+  setPanel(transpiledEl, cCode);
 
   const lines = tokens.map((t) => `<${t.type}, ${t.text}, ${t.line}>`);
   setPanel(tokensEl, lines.join("\n"));

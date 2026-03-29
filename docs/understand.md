@@ -22,6 +22,92 @@ For lab and viva, the most important core is:
 4. Parser prints parse actions and syntax/semantic diagnostics.
 5. Program exits with success/failure code.
 
+## 2.1 How You Get Final Output (Normal Code Execution)
+
+In your project, there are two output paths:
+
+1. Browser playground path (`web/playground.html` + `web/app.js`)
+2. Native execution-proof path (`minion2c.exe` -> `gcc` -> `.exe`)
+
+### A) Browser Playground Output Path
+
+This path is for fast demo execution in website.
+
+Step 1: Source input
+- You write MinionLang code in editor.
+
+Step 2: Comment cleanup
+- `stripComments()` removes `$$` and `$* *$` comments.
+
+Step 3: Lexical scan for display
+- `tokenize()` classifies text into tokens (KEYWORD, IDENTIFIER, SYMBOL, LITERAL, etc.).
+- Token list shown in Tokens panel.
+
+Step 4: Static syntax sanity checks
+- `staticAnalyze()` checks common syntax mistakes (for example unknown type keyword, bracket mismatch).
+- If syntax issues exist, execution is skipped and diagnostics are shown.
+
+Step 5: MinionLang -> JavaScript conversion
+- `transpileToJs()` maps Minion syntax to JS:
+  - `kaba` -> `if`, `bababa` -> `else`
+  - `add/mul/minus/...` -> `+/*/-/...`
+  - `:=` -> `=`
+  - `banana foo(...)` -> `function foo(...)`
+  - `papoy(...)` -> `__print(...)`
+
+Step 6: Runtime wrapper injection
+- JS wrapper adds:
+  - `__print()` for collecting output lines
+  - `__fmt()` for `%d/%f/%s` formatting
+  - `__scan()` placeholder (not fully interactive in browser)
+
+Step 7: Execute transpiled JS
+- `new Function(runtime)()` runs generated JS.
+- If `starta()` exists, it is called.
+
+Step 8: Show final output
+- Collected `__out` lines are joined and shown in Program Output panel.
+- Any lexical/static/runtime problems shown in Diagnostics panel.
+
+### B) Native Execution-Proof Output Path (Closest to Real Compiler Execution)
+
+This path is used by `mingw32-make exec-proof`.
+
+Step 1: Translator build
+- Flex builds translator scanner from `src/minionlang_to_c.l`.
+- GCC builds `minion2c.exe`.
+
+Step 2: MinionLang -> C translation
+- `minion2c.exe input.minion output.c` generates C source.
+
+Step 3: C compilation
+- GCC compiles generated C file into executable (`output.exe`).
+
+Step 4: Native execution
+- The executable runs and writes output text.
+
+Step 5: Output validation
+- Runner compares actual output with expected output (`.expected.txt`).
+- Match = PASS, mismatch = FAIL.
+
+This is the pipeline that produces output most like normal compiled code execution.
+
+## 2.2 Where Lexer and Parser Fit in Output Generation
+
+- Lexer (`.l`) is responsible for token-level understanding.
+- Parser (`.y`) is responsible for grammar + semantic validity.
+- Valid lexer/parser behavior is a prerequisite for trusted output.
+- In website mode, output comes from JS transpilation runtime.
+- In execution-proof mode, output comes from translated C binary.
+
+So, conceptually:
+
+Minion source -> Lexer tokens -> Parser validation -> (Translator) -> C code -> Native binary -> Final output
+
+And website fast path:
+
+Minion source -> Browser tokenizer/checks -> JS transpile -> JS runtime -> Final output
+
 ## 3. Main Part of `.l` File (`src/minionlang.l`)
 
 Your `.l` file has 3 standard sections:
