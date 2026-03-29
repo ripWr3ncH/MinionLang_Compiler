@@ -114,6 +114,92 @@ function tokenize(src) {
   return { tokens, diagnostics };
 }
 
+function staticAnalyze(src) {
+  const diagnostics = [];
+  const clean = stripComments(src);
+  const lines = clean.split("\n");
+
+  // Catch common declaration typo like: banan a := 5;
+  const declTypos = [];
+  lines.forEach((line, idx) => {
+    const m = line.match(/^\s*([A-Za-z_][A-Za-z0-9_]*)\s+([A-Za-z_][A-Za-z0-9_]*)\s*:=/);
+    if (!m) return;
+    const first = m[1];
+    if (!typeWords.has(first)) {
+      declTypos.push(`SYNTAX ERROR line ${idx + 1}: unknown type keyword '${first}' before '${m[2]}'.`);
+      if (first === "banan") {
+        declTypos.push(`HINT line ${idx + 1}: did you mean 'banana'?`);
+      }
+    }
+  });
+  diagnostics.push(...declTypos);
+
+  // Check bracket/parenthesis balance while ignoring quoted strings.
+  const stack = [];
+  const openers = new Set(["(", "{", "["]);
+  const closerToOpener = {
+    ")": "(",
+    "}": "{",
+    "]": "["
+  };
+
+  let line = 1;
+  let inString = false;
+  let stringQuote = "";
+  let escaped = false;
+
+  for (let i = 0; i < clean.length; i += 1) {
+    const ch = clean[i];
+
+    if (ch === "\n") {
+      line += 1;
+    }
+
+    if (inString) {
+      if (escaped) {
+        escaped = false;
+        continue;
+      }
+      if (ch === "\\") {
+        escaped = true;
+        continue;
+      }
+      if (ch === stringQuote) {
+        inString = false;
+        stringQuote = "";
+      }
+      continue;
+    }
+
+    if (ch === '"' || ch === "'") {
+      inString = true;
+      stringQuote = ch;
+      continue;
+    }
+
+    if (openers.has(ch)) {
+      stack.push({ ch, line });
+      continue;
+    }
+
+    if (Object.prototype.hasOwnProperty.call(closerToOpener, ch)) {
+      const top = stack[stack.length - 1];
+      if (!top || top.ch !== closerToOpener[ch]) {
+        diagnostics.push(`SYNTAX ERROR line ${line}: unmatched '${ch}'.`);
+      } else {
+        stack.pop();
+      }
+    }
+  }
+
+  while (stack.length > 0) {
+    const item = stack.pop();
+    diagnostics.push(`SYNTAX ERROR line ${item.line}: missing closing pair for '${item.ch}'.`);
+  }
+
+  return diagnostics;
+}
+
 function convertParams(raw) {
   if (!raw.trim()) return "";
   return raw
@@ -162,13 +248,21 @@ function transpileToJs(src) {
 function runProgram(src) {
   const diagnostics = [];
   const { tokens, diagnostics: lexicalDiag } = tokenize(src);
+  const staticDiag = staticAnalyze(src);
   diagnostics.push(...lexicalDiag);
+  diagnostics.push(...staticDiag);
 
   const js = transpileToJs(src);
   setPanel(transpiledEl, js);
 
   const lines = tokens.map((t) => `<${t.type}, ${t.text}, ${t.line}>`);
   setPanel(tokensEl, lines.join("\n"));
+
+  if (staticDiag.some((d) => d.startsWith("SYNTAX ERROR"))) {
+    setPanel(outputEl, "(execution skipped due to syntax issues)");
+    setPanel(diagnosticsEl, diagnostics.join("\n"));
+    return;
+  }
 
   try {
     const runtime = `
@@ -216,8 +310,10 @@ function runProgram(src) {
 
 function showTokensOnly(src) {
   const { tokens, diagnostics } = tokenize(src);
+  const staticDiag = staticAnalyze(src);
   setPanel(tokensEl, tokens.map((t) => `<${t.type}, ${t.text}, ${t.line}>`).join("\n"));
-  setPanel(diagnosticsEl, diagnostics.length ? diagnostics.join("\n") : "OK: tokenization completed.");
+  const allDiag = [...diagnostics, ...staticDiag];
+  setPanel(diagnosticsEl, allDiag.length ? allDiag.join("\n") : "OK: tokenization completed.");
 }
 
 document.getElementById("btn-example").addEventListener("click", () => {

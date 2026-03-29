@@ -29,7 +29,7 @@ lexer:
 	$(GCC) -o minionlexer.exe lex.yy.c
 
 parser:
-	$(BISON) -d -v src\minionlang.y -o src\minionlang.tab.c
+	set PATH=GnuWin32\bin;%PATH% && $(BISON) -d -v src\minionlang.y -o src\minionlang.tab.c
 	$(FLEX) src\minionlang_parser.l
 	$(GCC) -o minionparser.exe src\minionlang.tab.c src\lex.yy.c -I src
 

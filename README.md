@@ -40,6 +40,20 @@ banana starta() {
 
 If `make` is not available in your Windows shell, use `mingw32-make` with the same targets.
 
+### Where to Run Commands
+
+If you are inside project root (`MinionLang_Compiler`):
+
+```bash
+mingw32-make all
+```
+
+If you are in parent folder (`compiler`), use `-C`:
+
+```bash
+mingw32-make -C .\MinionLang_Compiler all
+```
+
 ### Option 1: Build Everything (Recommended)
 
 ```bash
@@ -67,6 +81,38 @@ make ir
 make lexer-test
 make syntax-tests
 make semantic-tests
+```
+
+### Show Output in Terminal or File
+
+Lexer output to terminal:
+
+```bash
+mingw32-make lexer
+.\minionlexer.exe tests\sample.minion
+```
+
+Lexer output to file:
+
+```bash
+mingw32-make lexer
+.\minionlexer.exe tests\sample.minion tests\sample.tokens
+type tests\sample.tokens
+```
+
+Parser output to terminal:
+
+```bash
+mingw32-make parser
+.\minionparser.exe tests\valid_syntax.minion
+```
+
+Parser output saved to file:
+
+```bash
+mingw32-make parser
+.\minionparser.exe tests\valid_syntax.minion > tests\valid_syntax.parse.log 2>&1
+type tests\valid_syntax.parse.log
 ```
 
 ### Option 4: Run Full Lab Demo (All Checks)
@@ -232,6 +278,7 @@ flexing/
 | [COMPLETE_VIVA_PREP_GUIDE.md](docs/COMPLETE_VIVA_PREP_GUIDE.md) | End-to-end viva preparation | Answering teacher questions confidently |
 | [VIVA_QUICK_REFERENCE.md](docs/VIVA_QUICK_REFERENCE.md) | Quick reference guide | Viva/presentation preparation |
 | [COMPLETE_PROJECT_EXPLANATION.md](docs/COMPLETE_PROJECT_EXPLANATION.md) | Beginner-friendly full project explanation | Learning and explaining the full project easily |
+| [understand.md](docs/understand.md) | End-to-end lexer/parser learning guide | Understanding `.l` and `.y` with run/output workflow |
 | [context.md](contexts/context.md) | Language design and mappings | Understanding MinionLang |
 
 ---
